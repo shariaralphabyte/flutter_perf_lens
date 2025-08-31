@@ -22,7 +22,8 @@ class PerfLensThemeData {
   });
 
   static const PerfLensThemeData dark = PerfLensThemeData(
-    backgroundColor: Color(0xE6000000), // Black with 90% opacity
+    backgroundColor: Color(0xE6000000),
+    // Black with 90% opacity
     borderColor: Colors.green,
     textColor: Colors.white,
     iconColor: Colors.white70,
@@ -32,7 +33,8 @@ class PerfLensThemeData {
   );
 
   static const PerfLensThemeData light = PerfLensThemeData(
-    backgroundColor: Color(0xE6FFFFFF), // White with 90% opacity
+    backgroundColor: Color(0xE6FFFFFF),
+    // White with 90% opacity
     borderColor: Colors.blue,
     textColor: Colors.black87,
     iconColor: Colors.black54,
@@ -70,7 +72,7 @@ class PerfLensThemeProvider extends InheritedWidget {
       }
       return provider.theme;
     }
-    
+
     // Fallback to system theme
     final brightness = MediaQuery.of(context).platformBrightness;
     return PerfLensThemeData.fromBrightness(brightness);

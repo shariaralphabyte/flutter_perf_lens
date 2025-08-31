@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +34,7 @@ class _PerfLensState extends State<PerfLens> {
   @override
   void initState() {
     super.initState();
-    
+
     if (widget.enabled) {
       _initializePerformanceMonitoring();
     }
@@ -44,10 +43,10 @@ class _PerfLensState extends State<PerfLens> {
   void _initializePerformanceMonitoring() {
     // Start performance monitoring
     PerformanceMonitor().startMonitoring();
-    
+
     // Start widget observer
     PerfLensWidgetObserver().startObserving();
-    
+
     // Setup network interception
     if (widget.interceptNetwork) {
       _previousOverrides = HttpOverrides.current;
@@ -60,7 +59,7 @@ class _PerfLensState extends State<PerfLens> {
     if (widget.enabled) {
       PerformanceMonitor().stopMonitoring();
       PerfLensWidgetObserver().stopObserving();
-      
+
       if (widget.interceptNetwork && _previousOverrides != null) {
         HttpOverrides.global = _previousOverrides;
       }
@@ -79,8 +78,7 @@ class _PerfLensState extends State<PerfLens> {
       child: Stack(
         children: [
           widget.child,
-          if (widget.showOverlay)
-            const perf_overlay.PerfLensOverlay(),
+          if (widget.showOverlay) const perf_overlay.PerfLensOverlay(),
         ],
       ),
     );
@@ -88,13 +86,11 @@ class _PerfLensState extends State<PerfLens> {
 }
 
 class FlutterPerfLens {
-  static void enableGlobalMonitoring({
-    bool interceptNetwork = true,
-  }) {
+  static void enableGlobalMonitoring({bool interceptNetwork = true}) {
     if (kDebugMode) {
       PerformanceMonitor().startMonitoring();
       PerfLensWidgetObserver().startObserving();
-      
+
       if (interceptNetwork) {
         final previous = HttpOverrides.current;
         HttpOverrides.global = PerfLensHttpOverrides(previous);
@@ -107,7 +103,7 @@ class FlutterPerfLens {
     PerfLensWidgetObserver().stopObserving();
   }
 
-  static Stream<PerformanceMetrics> get metricsStream => 
+  static Stream<PerformanceMetrics> get metricsStream =>
       PerformanceMonitor().metricsStream;
 
   // Legacy method for backward compatibility

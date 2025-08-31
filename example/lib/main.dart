@@ -16,10 +16,7 @@ class MyApp extends StatelessWidget {
     return PerfLens(
       child: MaterialApp(
         title: 'PerfLens Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          useMaterial3: true,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
         darkTheme: ThemeData.dark(useMaterial3: true),
         home: const DemoHomePage(),
       ),
@@ -65,30 +62,32 @@ class _DemoHomePageState extends State<DemoHomePage>
 
   void _addWidgets() {
     setState(() {
-      _widgets.addAll(List.generate(
-        50,
-        (index) => RebuildDetector(
-          debugLabel: 'DemoWidget_$index',
-          child: Container(
-            margin: const EdgeInsets.all(4),
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: Colors.primaries[index % Colors.primaries.length],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text(
-                '$index',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+      _widgets.addAll(
+        List.generate(
+          50,
+          (index) => RebuildDetector(
+            debugLabel: 'DemoWidget_$index',
+            child: Container(
+              margin: const EdgeInsets.all(4),
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.primaries[index % Colors.primaries.length],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
+                child: Text(
+                  '$index',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ));
+      );
     });
   }
 
@@ -103,51 +102,49 @@ class _DemoHomePageState extends State<DemoHomePage>
       _isPerformingHeavyTask = true;
     });
 
-    _heavyComputationTimer = Timer.periodic(
-      const Duration(milliseconds: 16),
-      (timer) {
-        // Simulate heavy computation that blocks the UI thread
-        final random = Random();
-        var sum = 0;
-        for (int i = 0; i < 100000; i++) {
-          sum += random.nextInt(1000);
-        }
+    _heavyComputationTimer = Timer.periodic(const Duration(milliseconds: 16), (
+      timer,
+    ) {
+      // Simulate heavy computation that blocks the UI thread
+      final random = Random();
+      var sum = 0;
+      for (int i = 0; i < 100000; i++) {
+        sum += random.nextInt(1000);
+      }
 
+      setState(() {
+        _counter = sum % 1000;
+      });
+
+      if (timer.tick > 120) {
+        timer.cancel();
         setState(() {
-          _counter = sum % 1000;
+          _isPerformingHeavyTask = false;
         });
-
-        if (timer.tick > 120) {
-          timer.cancel();
-          setState(() {
-            _isPerformingHeavyTask = false;
-          });
-        }
-      },
-    );
+      }
+    });
   }
 
   void _makeNetworkCalls() {
-    _networkTimer = Timer.periodic(
-      const Duration(milliseconds: 500),
-      (timer) async {
-        try {
-          final client = HttpClient();
-          final request = await client.getUrl(
-            Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
-          );
-          final response = await request.close();
-          await response.drain();
-          client.close();
-        } catch (e) {
-          // Ignore network errors for demo
-        }
+    _networkTimer = Timer.periodic(const Duration(milliseconds: 500), (
+      timer,
+    ) async {
+      try {
+        final client = HttpClient();
+        final request = await client.getUrl(
+          Uri.parse('https://jsonplaceholder.typicode.com/posts/1'),
+        );
+        final response = await request.close();
+        await response.drain();
+        client.close();
+      } catch (e) {
+        // Ignore network errors for demo
+      }
 
-        if (timer.tick > 10) {
-          timer.cancel();
-        }
-      },
-    );
+      if (timer.tick > 10) {
+        timer.cancel();
+      }
+    });
   }
 
   @override
@@ -220,9 +217,16 @@ class _DemoHomePageState extends State<DemoHomePage>
                           label: const Text('Clear Widgets'),
                         ),
                         ElevatedButton.icon(
-                          onPressed: _isPerformingHeavyTask ? null : _startHeavyComputation,
+                          onPressed:
+                              _isPerformingHeavyTask
+                                  ? null
+                                  : _startHeavyComputation,
                           icon: const Icon(Icons.memory),
-                          label: Text(_isPerformingHeavyTask ? 'Computing...' : 'Heavy Task'),
+                          label: Text(
+                            _isPerformingHeavyTask
+                                ? 'Computing...'
+                                : 'Heavy Task',
+                          ),
                         ),
                         ElevatedButton.icon(
                           onPressed: _makeNetworkCalls,
@@ -274,11 +278,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                     height: 100,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.blue,
-                          Colors.purple,
-                          Colors.pink,
-                        ],
+                        colors: [Colors.blue, Colors.purple, Colors.pink],
                         stops: [0.0, _animation.value, 1.0],
                       ),
                       borderRadius: BorderRadius.circular(50),
@@ -306,9 +306,7 @@ class _DemoHomePageState extends State<DemoHomePage>
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 8),
-                      Wrap(
-                        children: _widgets,
-                      ),
+                      Wrap(children: _widgets),
                     ],
                   ),
                 ),

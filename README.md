@@ -24,7 +24,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_perf_lens: ^0.0.1
+  flutter_perf_lens: ^1.0.0
 ```
 
 ### Usage

@@ -17,26 +17,22 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
   bool _isExpanded = false;
   bool _isDragging = false;
   Offset _position = const Offset(20, 100);
-  
+
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-    
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
-    
-    _scaleAnimation = Tween<double>(
-      begin: 1.0,
-      end: 1.1,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
 
     _subscription = PerformanceMonitor().metricsStream.listen((metrics) {
       if (mounted) {
@@ -82,7 +78,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
         onPanEnd: (_) {
           _isDragging = false;
           _animationController.reverse();
-          
+
           // Snap to edges
           final screenSize = MediaQuery.of(context).size;
           setState(() {
@@ -91,7 +87,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
             } else {
               _position = Offset(screenSize.width - 120, _position.dy);
             }
-            
+
             // Keep within screen bounds
             _position = Offset(
               _position.dx.clamp(0, screenSize.width - 120),
@@ -119,7 +115,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
 
   Widget _buildOverlayContent() {
     final theme = PerfLensThemeProvider.getTheme(context);
-    
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -129,7 +125,10 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
         color: theme.backgroundColor,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: _currentMetrics!.isLagging ? theme.errorColor : theme.successColor,
+          color:
+              _currentMetrics!.isLagging
+                  ? theme.errorColor
+                  : theme.successColor,
           width: 2,
         ),
         boxShadow: [
@@ -149,7 +148,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
 
   Widget _buildCompactView() {
     final theme = PerfLensThemeProvider.getTheme(context);
-    
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -203,7 +202,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
 
   Widget _buildExpandedView() {
     final theme = PerfLensThemeProvider.getTheme(context);
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -220,7 +219,10 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
             ),
             Icon(
               _currentMetrics!.isLagging ? Icons.warning : Icons.check_circle,
-              color: _currentMetrics!.isLagging ? theme.errorColor : theme.successColor,
+              color:
+                  _currentMetrics!.isLagging
+                      ? theme.errorColor
+                      : theme.successColor,
               size: 16,
             ),
           ],
@@ -254,9 +256,14 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
     );
   }
 
-  Widget _buildMetricRow(String label, String value, Color color, IconData icon) {
+  Widget _buildMetricRow(
+    String label,
+    String value,
+    Color color,
+    IconData icon,
+  ) {
     final theme = PerfLensThemeProvider.getTheme(context);
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(

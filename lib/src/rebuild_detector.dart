@@ -6,11 +6,7 @@ class RebuildDetector extends StatefulWidget {
   final Widget child;
   final String? debugLabel;
 
-  const RebuildDetector({
-    Key? key,
-    required this.child,
-    this.debugLabel,
-  }) : super(key: key);
+  const RebuildDetector({super.key, required this.child, this.debugLabel});
 
   @override
   State<RebuildDetector> createState() => _RebuildDetectorState();
@@ -24,19 +20,24 @@ class _RebuildDetectorState extends State<RebuildDetector> {
     if (kDebugMode) {
       _rebuildCount++;
       PerformanceMonitor().incrementWidgetRebuilds();
-      
+
       if (kDebugMode && _rebuildCount > 10) {
-        debugPrint('⚠️ PerfLens: Widget "${widget.debugLabel ?? widget.runtimeType}" has rebuilt $_rebuildCount times');
+        debugPrint(
+          '⚠️ PerfLens: Widget "${widget.debugLabel ?? widget.runtimeType}" has rebuilt $_rebuildCount times',
+        );
       }
     }
-    
+
     return widget.child;
   }
 }
 
 class PerfLensWidgetObserver extends WidgetsBindingObserver {
-  static final PerfLensWidgetObserver _instance = PerfLensWidgetObserver._internal();
+  static final PerfLensWidgetObserver _instance =
+      PerfLensWidgetObserver._internal();
+
   factory PerfLensWidgetObserver() => _instance;
+
   PerfLensWidgetObserver._internal();
 
   bool _isObserving = false;
@@ -56,7 +57,7 @@ class PerfLensWidgetObserver extends WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    
+
     if (state == AppLifecycleState.resumed) {
       PerformanceMonitor().resetCounters();
     }

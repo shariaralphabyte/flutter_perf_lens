@@ -20,12 +20,14 @@ class PerformanceMetrics {
 
 class PerformanceMonitor {
   static final PerformanceMonitor _instance = PerformanceMonitor._internal();
+
   factory PerformanceMonitor() => _instance;
+
   PerformanceMonitor._internal();
 
   final StreamController<PerformanceMetrics> _metricsController =
       StreamController<PerformanceMetrics>.broadcast();
-  
+
   Stream<PerformanceMetrics> get metricsStream => _metricsController.stream;
 
   // FPS Monitoring
@@ -65,7 +67,7 @@ class PerformanceMonitor {
 
   void _startFpsMonitoring() {
     SchedulerBinding.instance.addTimingsCallback(_onFrameTimings);
-    
+
     _fpsTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       _calculateFps();
     });
@@ -75,7 +77,7 @@ class PerformanceMonitor {
     for (final timing in timings) {
       final frameDuration = timing.totalSpan;
       _frameTimes.add(frameDuration);
-      
+
       // Keep only last 60 frames for calculation
       if (_frameTimes.length > 60) {
         _frameTimes.removeAt(0);
@@ -91,15 +93,15 @@ class PerformanceMonitor {
 
     // Calculate average frame time
     final totalTime = _frameTimes.fold<int>(
-      0, 
+      0,
       (sum, duration) => sum + duration.inMicroseconds,
     );
-    
+
     final averageFrameTime = totalTime / _frameTimes.length;
-    
+
     // Convert to FPS (1 second = 1,000,000 microseconds)
     _currentFps = 1000000 / averageFrameTime;
-    
+
     // Clamp FPS to reasonable range
     _currentFps = _currentFps.clamp(0.0, 60.0);
   }
@@ -114,7 +116,8 @@ class PerformanceMonitor {
     if (kDebugMode) {
       try {
         // This is a simplified approach - in production you'd use VMService
-        _currentMemoryUsage = (DateTime.now().millisecondsSinceEpoch % 100000000) ~/ 1000000;
+        _currentMemoryUsage =
+            (DateTime.now().millisecondsSinceEpoch % 100000000) ~/ 1000000;
       } catch (e) {
         _currentMemoryUsage = 0;
       }
@@ -124,7 +127,7 @@ class PerformanceMonitor {
   void _startMetricsEmission() {
     Timer.periodic(const Duration(milliseconds: 500), (_) {
       if (!_isMonitoring) return;
-      
+
       final metrics = PerformanceMetrics(
         fps: _currentFps,
         memoryUsage: _currentMemoryUsage,
@@ -132,7 +135,7 @@ class PerformanceMonitor {
         widgetRebuilds: _rebuildCount,
         isLagging: _currentFps < 45.0,
       );
-      
+
       _metricsController.add(metrics);
     });
   }
