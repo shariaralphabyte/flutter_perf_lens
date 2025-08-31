@@ -187,3 +187,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Made with 🔥 by the Flutter community**
 
 *If PerfLens helped you optimize your app, consider giving it a ⭐ on GitHub!*
+
+## 🏷️ Tags
+
+#Flutter #FlutterDev #PerformanceMonitoring #DevTools #MobileApp #AppOptimization #FPS #MemoryUsage #NetworkMonitoring #WidgetRebuild #FlutterPlugin #DeveloperTools #AppPerformance #Lighthouse #ChromeDevTools #FlutterCommunity #OpenSource #MIT #Debugging #Profiling #RealTimeMonitoring #UIPerformance #MobileDevelopment #CrossPlatform #DartLang #FlutterPackage #PubDev #GitHub #SoftwareDevelopment #CodeOptimization
