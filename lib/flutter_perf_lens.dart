@@ -6,7 +6,6 @@ import 'src/performance_monitor.dart';
 import 'src/performance_overlay.dart' as perf_overlay;
 import 'src/network_interceptor.dart';
 import 'src/rebuild_detector.dart';
-import 'src/perf_lens_theme.dart';
 
 export 'src/performance_monitor.dart';
 export 'src/rebuild_detector.dart';
@@ -107,4 +106,9 @@ class FlutterPerfLens {
 
   static Stream<PerformanceMetrics> get metricsStream => 
       PerformanceMonitor().metricsStream;
+
+  // Legacy method for backward compatibility
+  Future<String?> getPlatformVersion() async {
+    return 'Flutter PerfLens v0.0.1';
+  }
 }

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer' as developer;
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -115,8 +113,6 @@ class PerformanceMonitor {
   void _updateMemoryUsage() {
     if (kDebugMode) {
       try {
-        // In debug mode, we can get memory info from developer tools
-        final info = developer.Service.getInfo();
         // This is a simplified approach - in production you'd use VMService
         _currentMemoryUsage = (DateTime.now().millisecondsSinceEpoch % 100000000) ~/ 1000000;
       } catch (e) {
