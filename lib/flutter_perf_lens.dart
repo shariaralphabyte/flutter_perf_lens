@@ -74,12 +74,15 @@ class _PerfLensState extends State<PerfLens> {
       return widget.child;
     }
 
-    return Stack(
-      children: [
-        widget.child,
-        if (widget.showOverlay)
-          const perf_overlay.PerfLensOverlay(),
-      ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Stack(
+        children: [
+          widget.child,
+          if (widget.showOverlay)
+            const perf_overlay.PerfLensOverlay(),
+        ],
+      ),
     );
   }
 }
