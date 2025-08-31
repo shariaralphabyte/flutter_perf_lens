@@ -2,6 +2,9 @@ name: flutter_perf_lens
 description: "A one-line integration Flutter plugin that overlays performance monitoring like Chrome DevTools Lighthouse for Flutter apps."
 version: 0.0.1
 homepage: https://github.com/shariaralphabyte/flutter_perf_lens
+repository: https://github.com/shariaralphabyte/flutter_perf_lens
+issue_tracker: https://github.com/shariaralphabyte/flutter_perf_lens/issues
+documentation: https://github.com/shariaralphabyte/flutter_perf_lens/latest/
 
 environment:
   sdk: ^3.7.2
