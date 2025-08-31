@@ -118,7 +118,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
   }
 
   Widget _buildOverlayContent() {
-    final theme = PerfLensThemeData.getTheme(context);
+    final theme = PerfLensThemeProvider.getTheme(context);
     
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -148,7 +148,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
   }
 
   Widget _buildCompactView() {
-    final theme = PerfLensThemeData.getTheme(context);
+    final theme = PerfLensThemeProvider.getTheme(context);
     
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -202,7 +202,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
   }
 
   Widget _buildExpandedView() {
-    final theme = PerfLensThemeData.getTheme(context);
+    final theme = PerfLensThemeProvider.getTheme(context);
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,7 +255,7 @@ class _PerfLensOverlayState extends State<PerfLensOverlay>
   }
 
   Widget _buildMetricRow(String label, String value, Color color, IconData icon) {
-    final theme = PerfLensThemeData.getTheme(context);
+    final theme = PerfLensThemeProvider.getTheme(context);
     
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),

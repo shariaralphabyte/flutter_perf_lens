@@ -161,4 +161,8 @@ class _PerfLensHttpClient implements HttpClient {
 
   @override
   set keyLog(Function(String line)? callback) => _inner.keyLog = callback;
+
+  @override
+  set connectionFactory(Future<ConnectionTask<Socket>> Function(Uri url, String? proxyHost, int? proxyPort)? f) =>
+      _inner.connectionFactory = f;
 }
