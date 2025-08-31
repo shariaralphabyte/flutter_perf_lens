@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'performance_monitor.dart';
 import 'perf_lens_theme.dart';
 
-class PerformanceOverlay extends StatefulWidget {
-  const PerformanceOverlay({Key? key}) : super(key: key);
+class PerfLensOverlay extends StatefulWidget {
+  const PerfLensOverlay({Key? key}) : super(key: key);
 
   @override
-  State<PerformanceOverlay> createState() => _PerformanceOverlayState();
+  State<PerfLensOverlay> createState() => _PerfLensOverlayState();
 }
 
-class _PerformanceOverlayState extends State<PerformanceOverlay>
+class _PerfLensOverlayState extends State<PerfLensOverlay>
     with TickerProviderStateMixin {
   StreamSubscription<PerformanceMetrics>? _subscription;
   PerformanceMetrics? _currentMetrics;

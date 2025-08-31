@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'src/performance_monitor.dart';
-import 'src/performance_overlay.dart';
+import 'src/performance_overlay.dart' as perf_overlay;
 import 'src/network_interceptor.dart';
 import 'src/rebuild_detector.dart';
 import 'src/perf_lens_theme.dart';
@@ -79,7 +79,7 @@ class _PerfLensState extends State<PerfLens> {
       children: [
         widget.child,
         if (widget.showOverlay)
-          const PerformanceOverlay(),
+          const perf_overlay.PerfLensOverlay(),
       ],
     );
   }
